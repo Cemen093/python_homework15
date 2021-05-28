@@ -6,14 +6,23 @@ class Authors(models.Model):
     last_name = models.CharField(max_length=100, null=False, blank=False, verbose_name='Фамилия')
     login = models.CharField(max_length=100, null=False, blank=False, verbose_name='Логин')
 
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False, verbose_name='Имя')
+
+    def __str__(self):
+        return self.name
 
 
 # Модель Category содержит название тега; Может не Category а Tag???
 class Tag(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False, verbose_name='Имя')
+
+    def __str__(self):
+        return self.name
 
 
 class Post(models.Model):
@@ -25,3 +34,6 @@ class Post(models.Model):
     author = models.ForeignKey(Authors, null=True, on_delete=models.SET_NULL, verbose_name='Автор')
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL, verbose_name='Категории')
     tags = models.ManyToManyField(Tag, verbose_name='Теги')
+
+    def __str__(self):
+        return self.title
